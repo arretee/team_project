@@ -38,6 +38,17 @@ def event_hanlder():
     for event in events:
         if event.type == pygame.QUIT:
             state["running"] = False
+            
+            
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                soldier.move(right=True)
+            if event.key == pygame.K_LEFT:
+                soldier.move(left=True)
+            if event.key == pygame.K_UP:
+                soldier.move(up=True)
+            if event.key == pygame.K_DOWN:
+                soldier.move(down=True)
     
     
 

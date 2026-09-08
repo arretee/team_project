@@ -1,15 +1,60 @@
 import consts
 
 player =  {
-    "body_positions":[],
-    "leg_positions":[]
+    "body_positions":[], # List of lists with rows and colos: [[row1, col1], [row2, col2], [row3, col3], ....]
+    "leg_positions":[]  # List of lists with rows and colos: [[row1, col1], [row2, col2]]]
 }
 
 def create_player():
-
     for row in range(consts.PLAYER_ROWS):
         for col in range(consts.PLAYER_COLS):
-            if row <= consts.PLAYER_ROWS - 1:
-                player["body_positions"].append((row,col))
+            if row <= consts.PLAYER_ROWS - 2:
+                player["body_positions"].append([row,col])
             else:
-                player["leg_positions"].append((row,col))
+                player["leg_positions"].append([row,col])
+
+
+
+def move(right: bool = False, left: bool = False, up: bool = False, down: bool = False):
+    """Function is moving player in direction specified with args
+        Can be specified more than one direction
+
+    Args:
+        right (bool, optional): move to right. Defaults to False.
+        left (bool, optional): move to left. Defaults to False.
+        up (bool, optional): move to up. Defaults to False.
+        down (bool, optional): move down. Defaults to False.
+    """
+    
+    direction = [0, 0]
+    if right:
+        direction[1] += 1
+    if left:
+        direction[1] -= 1
+    if down:
+        direction[0] += 1
+    if up:
+        direction[0] -= 1
+    
+    player_up, player_left = player["body_positions"][0]
+    
+    player_right = player_left + consts.PLAYER_COLS - 1
+    player_down = player_up + consts.PLAYER_ROWS - 1
+    
+    can_be_moved = False
+    
+    # Check if new player pos is in range of board
+    if 0 <= player_left + direction[1] <= consts.BOARD_COLS and 0 <= player_right + direction[1] < consts.BOARD_COLS:
+        if 0 <= player_up + direction[0] <= consts.BOARD_ROWS and 0 <= player_down + direction[0] < consts.BOARD_ROWS:
+            can_be_moved = True
+            
+            
+    if can_be_moved:
+        for i in range(len(player["body_positions"])):
+            player["body_positions"][i][0] += direction[0]
+            player["body_positions"][i][1] += direction[1]
+        
+        for i in range(len(player["leg_positions"])):
+            player["leg_positions"][i][0] += direction[0]
+            player["leg_positions"][i][1] += direction[1]
+                    
