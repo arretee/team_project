@@ -15,7 +15,7 @@ def create_bushes():
     positions = []
     for row in range(consts.BOARD_ROWS):
         for col in range(consts.BOARD_COLS):
-            positions.append[(row, col)]
+            positions.append((row, col))
 
 
     # Set bushes on random positions
