@@ -1,11 +1,12 @@
 import pygame
 import consts
 import game_field
+import soldier
 
 screen = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 
-def fill_background():
-    screen.fill(consts.COLOR_BACKGROUND)
+def fill_background(color):
+    screen.fill(color)
 
 def draw_bushes(bush_list):
 
@@ -17,7 +18,7 @@ def draw_bushes(bush_list):
 
     for bush in bush_list:
 
-        bush_rect = bush_pic.get_rect(topleft=(bush["row"] * consts.CELL_SIZE,bush["col"] * consts.CELL_SIZE))
+        bush_rect = bush_pic.get_rect(topleft=(bush["col"] * consts.CELL_SIZE,bush["row"] * consts.CELL_SIZE))
         screen.blit(bush_pic, bush_rect)
 
 
@@ -41,11 +42,33 @@ def draw_flag():
     screen.blit(flag_pic, flag_rect)
 
 
-def draw(state):
-    fill_background()
+def draw_soldier(pic_path):
+    soldier_pic = pygame.image.load(pic_path)
+    size_pic = (consts.CELL_SIZE * consts.PLAYER_SCALE_COL, consts.CELL_SIZE * consts.PLAYER_SCALE_ROW)
+    soldier_pic = pygame.transform.scale(soldier_pic, size_pic)
 
+    soldier_rect = soldier_pic.get_rect(topleft=(soldier.player["body_positions"][0][1] * consts.CELL_SIZE, soldier.player["body_positions"][0][0] * consts.CELL_SIZE))
+    screen.blit(soldier_pic, soldier_rect)
+
+
+def draw_day_mode():
+    fill_background(consts.COLOR_BACKGROUND)
     draw_bushes(game_field.bushes)
-    draw_mines(game_field.mines)
     draw_flag()
+    draw_soldier(consts.PATH_IMAGE_SOLDIER)
+
+def draw_night_mode():
+    fill_background(consts.COLOR_BACKGROUND_NIGHT)
+    draw_mines(game_field.mines)
+    draw_soldier(consts.PATH_IMAGE_SOLDIER_NIGHT)
+
+
+
+def draw(state):
+
+    if state[consts.STATE_NIGHT_MODE]:
+        draw_night_mode()
+    else:
+        draw_day_mode()
 
     pygame.display.update()

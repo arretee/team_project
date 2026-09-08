@@ -4,6 +4,7 @@ import sys
 import screen
 import game_field
 import consts
+import soldier
 
 state = {
     consts.STATE_RUNNING: True,
@@ -14,8 +15,9 @@ def main():
     pygame.init()
     game_field.create_mines()
     game_field.create_bushes()
-    
-    
+    soldier.create_player()
+
+
     # Main game loop
     while state["running"]:
         event_hanlder()
