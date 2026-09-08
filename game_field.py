@@ -66,6 +66,3 @@ def create_mines():
         for pos in temp_mine + mine:
             if pos in positions:
                 positions.remove(pos)
-                
-                
-create_mines()
