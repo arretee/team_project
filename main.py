@@ -1,5 +1,6 @@
 import pygame
 import sys
+from time import sleep
 
 import screen
 import game_field
@@ -20,12 +21,23 @@ def main():
 
 
     # Main game loop
-    while state["running"]:
+    while state[consts.STATE_RUNNING]:
         event_hanlder()
+        
         screen.draw(state)
-        soldier.on_mine()
-        soldier.on_flag()
-    
+        
+
+        if soldier.on_mine():
+            state[consts.STATE_RUNNING] = False
+            screen.draw_message(consts.LOSE_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.LOSE_MESSAGE_COLOR)
+            
+        elif soldier.on_flag():
+            state[consts.STATE_RUNNING] = False
+            screen.draw_message(consts.WIN_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.WIN_MESSAGE_COLOR)
+            
+            
+            
+    sleep(5)
     pygame.quit()
     sys.exit()
 

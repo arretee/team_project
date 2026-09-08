@@ -71,6 +71,23 @@ def draw_night_mode():
     draw_soldier(consts.PATH_IMAGE_SOLDIER_NIGHT)
 
 
+def draw_message(text:str, pos:list, size:int, color: str):
+    """Draw message on the screen
+
+    Args:
+        text (str): text to display
+        pos (list): positon of center
+        size (int): size of text
+        color (str): color string
+    """
+    
+    font = pygame.font.SysFont("Arial", size)
+    image = font.render(text, False, color)
+    rect = image.get_rect(center = pos)
+    
+    screen.blit(image, rect)
+    pygame.display.update()
+
 
 def draw(state):
 

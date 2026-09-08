@@ -49,6 +49,18 @@ PLAYER_SCALE_ROW = 4
 PLAYER_SCALE_COL =  4
 
 
+# MESSAGES DATA
+MESSAGE_SIZE = 60
+MESSAGE_POS = ((BOARD_COLS * CELL_SIZE) // 2 , (BOARD_ROWS * CELL_SIZE) // 2)
+
+LOSE_MESSAGE = "You Lost it! BOOM"
+LOSE_MESSAGE_COLOR = "red"
+
+WIN_MESSAGE = "GOOD JOB! You reached the flag!"
+WIN_MESSAGE_COLOR = "green"
+
+
+
 # Paths
 PATH_IMAGE_EXPLOTION = "images/explotion.png"
 PATH_IMAGE_FLAG = "images/flag.png"
