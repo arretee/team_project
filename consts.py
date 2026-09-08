@@ -57,7 +57,7 @@ LOSE_MESSAGE = "You Lost it! BOOM"
 LOSE_MESSAGE_COLOR = "red"
 
 WIN_MESSAGE = "GOOD JOB! You reached the flag!"
-WIN_MESSAGE_COLOR = "green"
+WIN_MESSAGE_COLOR = "pink"
 
 
 
