@@ -12,16 +12,22 @@ COLOR_BACKGROUND = "#00b33c"
 COLOR_BACKGROUND_NIGHT = "#003300"
 COLOR_LINE = "#00b33c"
 
-# Sizes
+# Flag
 FLAG_ROWS = 3
 FLAG_COLS = 4
 
+FLAG_ROW = BOARD_ROWS - FLAG_ROWS
+FLAG_COL = BOARD_COLS - FLAG_COLS
+
+# Mines
 MINE_ROWS = 1
 MINE_COLS = 3
-
-# Number Of objects
-BUSHES_NUM = 20
 MINES_NUM = 20
+
+
+# Bushes
+BUSHES_NUM = 20
+
 
 # scale
 SCALE_BUSH_ROW = 3
@@ -30,23 +36,16 @@ SCALE_BUSH_COLUMN = 3
 SCALE_MINE_ROW = MINE_ROWS
 SCALE_MINE_COLUMN = MINE_COLS
 
-
-
-# Cells in game field matrix 
-EMPTY_CELL = 0
-MINE_CELL = 1
-FLAG_CELL = 2
-
 # States of program names
 STATE_RUNNING = "running"
 STATE_NIGHT_MODE = "night_mode"
 
+# Player data
+PLAYER_ROWS = 4
+PLAYER_COLS = 2
+PLAYER_START_ROW = 0
+PLAYER_START_COL = 0
 
-
-
-# Positions
-FLAG_ROW = BOARD_ROWS - FLAG_ROWS
-FLAG_COL = BOARD_COLS - FLAG_COLS
 
 
 # Paths

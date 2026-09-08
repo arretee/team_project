@@ -43,6 +43,14 @@ def create_mines():
         for col in range(consts.BOARD_COLS - consts.MINE_COLS + 1):
             positions.append((row, col))
             
+            
+    # Remove player start pos 
+    for row in range(consts.PLAYER_ROWS):
+        for col in range(consts.PLAYER_COLS):
+            if (row, col) in positions:
+                positions.remove((row, col)) 
+            
+            
     # Set mines at random positions
     for i in range(consts.BUSHES_NUM):
         pos = random.choice(positions)
