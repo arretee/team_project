@@ -1,6 +1,6 @@
 import pygame
 import consts
-import random
+import game_field
 
 screen = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 
@@ -32,21 +32,20 @@ def draw_mines(mine_list):
         screen.blit(mine_pic, mine_rect)
 
 
+def draw_flag():
+    flag_pic = pygame.image.load(consts.PATH_IMAGE_FLAG)
+    size_pic = (consts.CELL_SIZE * consts.FLAG_COLS, consts.CELL_SIZE * consts.FLAG_ROWS)
+    flag_pic = pygame.transform.scale(flag_pic, size_pic)
+
+    flag_rect = flag_pic.get_rect(topleft=(consts.FLAG_COL* consts.CELL_SIZE , consts.FLAG_ROW * consts.CELL_SIZE))
+    screen.blit(flag_pic, flag_rect)
+
 
 def draw(state):
     fill_background()
 
-    draw_bushes([
-        {"row": 20, "col": 4},
-        {"row": 33,  "col": 15},
-        {"row": 1, "col": 10}
-    ])
-
-    draw_mines([
-        [(3, 2), (3, 3), (3, 4)],
-        [(7, 5), (7, 6), (7, 7)],
-        [(20, 24), (20, 24), (20, 24)],
-        [(24, 9), (24, 10), (24, 11)]
-    ])
+    draw_bushes(game_field.bushes)
+    draw_mines(game_field.mines)
+    draw_flag()
 
     pygame.display.update()
