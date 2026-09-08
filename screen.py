@@ -47,8 +47,15 @@ def draw_soldier(pic_path):
     size_pic = (consts.CELL_SIZE * consts.PLAYER_SCALE_COL, consts.CELL_SIZE * consts.PLAYER_SCALE_ROW)
     soldier_pic = pygame.transform.scale(soldier_pic, size_pic)
 
-    soldier_rect = soldier_pic.get_rect(topleft=(soldier.player["body_positions"][0][1] * consts.CELL_SIZE, soldier.player["body_positions"][0][0] * consts.CELL_SIZE))
+    soldier_rect = soldier_pic.get_rect(topleft=((soldier.player["body_positions"][0][1]-1) * consts.CELL_SIZE, soldier.player["body_positions"][0][0] * consts.CELL_SIZE))
     screen.blit(soldier_pic, soldier_rect)
+
+
+def draw_grid():
+    for x in range(0, consts.WINDOW_WIDTH, consts.CELL_SIZE):
+        for y in range(0, consts.WINDOW_HEIGHT, consts.CELL_SIZE):
+            rect = pygame.Rect(x, y, consts.CELL_SIZE, consts.CELL_SIZE)
+            pygame.draw.rect(screen, consts.COLOR_LINE, rect, 1)
 
 
 def draw_day_mode():
@@ -59,6 +66,7 @@ def draw_day_mode():
 
 def draw_night_mode():
     fill_background(consts.COLOR_BACKGROUND_NIGHT)
+    draw_grid()
     draw_mines(game_field.mines)
     draw_soldier(consts.PATH_IMAGE_SOLDIER_NIGHT)
 
