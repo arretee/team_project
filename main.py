@@ -23,6 +23,8 @@ def main():
     while state["running"]:
         event_hanlder()
         screen.draw(state)
+        soldier.on_mine()
+        soldier.on_flag()
     
     pygame.quit()
     sys.exit()

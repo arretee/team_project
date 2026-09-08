@@ -1,4 +1,5 @@
 import consts
+import game_field
 
 player =  {
     "body_positions":[], # List of lists with rows and colos: [[row1, col1], [row2, col2], [row3, col3], ....]
@@ -12,6 +13,30 @@ def create_player():
                 player["body_positions"].append([row,col])
             else:
                 player["leg_positions"].append([row,col])
+
+def on_mine():
+    for leg in player["leg_positions"]:
+        for mine in game_field.mines:
+            if tuple(leg) in mine:
+                return True
+    return False
+
+
+def on_flag():
+
+    flag_position = []
+    for row in range(consts.FLAG_ROWS):
+        for col in range(consts.FLAG_COLS):
+            flag_position.append([consts.FLAG_ROW + row, consts.FLAG_COL + col])
+
+    for body in player["body_positions"]:
+        if body in flag_position:
+            return True
+    return False
+
+
+
+
 
 
 
