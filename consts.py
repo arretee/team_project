@@ -16,6 +16,15 @@ COLOR_LINE = "#00b33c"
 FLAG_ROWS = 3
 FLAG_COLS = 4
 
+MINE_ROWS = 1
+MINE_COLS = 3
+
+# Number Of objects
+BUSHES_NUM = 20
+MINES_NUM = 20
+
+
+
 # Cells in game field matrix 
 EMPTY_CELL = 0
 MINE_CELL = 1
