@@ -1,4 +1,1 @@
 print("test")
-
-pass
-pass
