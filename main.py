@@ -39,16 +39,20 @@ def event_hanlder():
         if event.type == pygame.QUIT:
             state["running"] = False
             
-            
+        if not state[consts.STATE_NIGHT_MODE]:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    soldier.move(right=True)
+                if event.key == pygame.K_LEFT:
+                    soldier.move(left=True)
+                if event.key == pygame.K_UP:
+                    soldier.move(up=True)
+                if event.key == pygame.K_DOWN:
+                    soldier.move(down=True)
+                    
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                soldier.move(right=True)
-            if event.key == pygame.K_LEFT:
-                soldier.move(left=True)
-            if event.key == pygame.K_UP:
-                soldier.move(up=True)
-            if event.key == pygame.K_DOWN:
-                soldier.move(down=True)
+            if event.key == pygame.K_RETURN:
+                state[consts.STATE_NIGHT_MODE] = not state[consts.STATE_NIGHT_MODE]
     
     
 
