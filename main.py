@@ -1,7 +1,8 @@
 import pygame
 import sys
-import screen
 
+import screen
+import game_field
 import consts
 
 state = {
@@ -11,6 +12,8 @@ state = {
 
 def main():
     pygame.init()
+    game_field.create_mines()
+    game_field.create_bushes()
     
     
     # Main game loop
