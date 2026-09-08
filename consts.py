@@ -23,6 +23,13 @@ MINE_COLS = 3
 BUSHES_NUM = 20
 MINES_NUM = 20
 
+# scale
+SCALE_BUSH_ROW = 3
+SCALE_BUSH_COLUMN = 3
+
+SCALE_MINE_ROW = MINE_ROWS
+SCALE_MINE_COLUMN = MINE_COLS
+
 
 
 # Cells in game field matrix 
@@ -47,9 +54,9 @@ PATH_IMAGE_EXPLOTION = "images/explotion.png"
 PATH_IMAGE_FLAG = "images/flag.png"
 PATH_IMAGE_GRASS = "images/grass.png"
 PATH_IMAGE_GUARD = "images/guard.png"
-PATH_IMAGE_INJURY = "image/injury.png"
-PATH_IMAGE_MICE = "image/mine.png"
-PATH_IMAGE_SNAKE = "image/snake.png"
-PATH_IMAGE_SOLDIER_NIGHT = "image/soldier_night.png"
-PATH_IMAGE_SOLDIER = "image/soldier.png"
+PATH_IMAGE_INJURY = "images/injury.png"
+PATH_IMAGE_MINE = "images/mine.png"
+PATH_IMAGE_SNAKE = "images/snake.png"
+PATH_IMAGE_SOLDIER_NIGHT = "images/soldier_night.png"
+PATH_IMAGE_SOLDIER = "images/soldier.png"
 PATH_TELEPORT = "images/teleport.png"

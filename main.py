@@ -16,6 +16,7 @@ def main():
     # Main game loop
     while state["running"]:
         event_hanlder()
+        screen.draw(state)
     
     pygame.quit()
     sys.exit()
