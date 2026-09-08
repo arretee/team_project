@@ -11,6 +11,7 @@ state = {
     consts.STATE_NIGHT_MODE: False,
 }
 
+
 def main():
     pygame.init()
     game_field.create_mines()
