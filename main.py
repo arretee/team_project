@@ -6,18 +6,26 @@ import screen
 import game_field
 import consts
 import soldier
+import database
 
 state = {
     consts.STATE_RUNNING: True,
     consts.STATE_NIGHT_MODE: False,
 }
 
+save_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0]
+pressed_keys = [False for key in save_keys]
+timers_keys = [0 for key in save_keys]
 
 def main():
     pygame.init()
     game_field.create_mines()
     game_field.create_bushes()
     soldier.create_player()
+    
+    # Create empty save data
+    if not database.file_exists(consts.PATH_FILE_SAVE):
+        database.create_empty_save(consts.PATH_FILE_SAVE)
 
 
     # Main game loop
@@ -38,9 +46,6 @@ def main():
             screen.draw_message(consts.WIN_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.WIN_MESSAGE_COLOR)
             sleep(5)
             
-            
-            
-            
     pygame.quit()
     sys.exit()
 
@@ -55,7 +60,8 @@ def event_hanlder():
     for event in events:
         if event.type == pygame.QUIT:
             state["running"] = False
-            
+
+        # Movemvent            
         if not state[consts.STATE_NIGHT_MODE]:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
@@ -66,10 +72,37 @@ def event_hanlder():
                     soldier.move(up=True)
                 if event.key == pygame.K_DOWN:
                     soldier.move(down=True)
-                    
+        
+        # Night Mode activation
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 state[consts.STATE_NIGHT_MODE] = not state[consts.STATE_NIGHT_MODE]
+                
+                
+        # Saves start timers 
+        if event.type == pygame.KEYDOWN:
+            for i, key in enumerate(save_keys):
+                if event.key == key:
+                    timers_keys[i] = pygame.time.get_ticks()
+                    pressed_keys[i] = True
+        
+        # End timer and check time that button was pressed
+        if event.type == pygame.KEYUP:
+            for i, key in enumerate(save_keys):
+                if event.key == key:
+                    pressed_keys[i] = False
+                    
+                    pressed_time = pygame.time.get_ticks() - timers_keys[i]
+                    
+                    if pressed_time > consts.TIME_FOR_SAVE * 1000:
+                        print("Load save", i)
+                        
+                    else:
+                        database.save_data_into(i, consts.PATH_FILE_SAVE, True, soldier.player["body_positions"][0], state[consts.STATE_NIGHT_MODE], game_field.mines, game_field.bushes)
+                        print("Save data into", i)
+                        
+                    
+                
     
     
 

@@ -74,7 +74,7 @@ PATH_IMAGE_SOLDIER = "images/soldier.png"
 PATH_TELEPORT = "images/teleport.png"
 
 
-PATH_FILE_SAVE = "save.csv"
+PATH_FILE_SAVE = "save.json"
 
 # Database keys
 DB_IS_SAVED = "is_saved"
@@ -84,3 +84,7 @@ DB_MINES = "mines"
 DB_BUSHES = "bushes"
 
 SAVES_NUMBERS = 10
+
+
+# Keyboard settings
+TIME_FOR_SAVE = 1

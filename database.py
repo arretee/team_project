@@ -20,7 +20,7 @@ def file_exists(path: str):
     return False
 
 
-def create_json(path: str):
+def create_empty_save(path: str):
     """Function to create saves file with no data inside.
 
     Args:
@@ -37,6 +37,36 @@ def create_json(path: str):
             consts.DB_BUSHES: []
         }
         
-    with open("sample.json", "w") as f:
+    with open(path, "w") as f:
         json.dump(empty_data, f)
+
+
+def save_data_into(save_num: int, path: str, is_saved:bool, player_pos:list, night_state: bool, mines: list, bushes:list):
+    """
+        Function saves data into an save file in relevant save number
+
+    Args:
+        save_num (int): number of sate to save the data into
+        path (str): path of save file
+        is_saved (bool): if data is relevant 
+        player_pos (list): player top left position
+        night_state (bool): night mode is active
+        mines (list): mines list
+        bushes (list): bushes list
+    """
+    
+    with open(path) as f:
+        data = json.load(f)
         
+    data[str(save_num)] = {
+            consts.DB_IS_SAVED: is_saved,
+            consts.DB_PLAYER_POS: player_pos,
+            consts.DB_NIGHT_STATE: night_state,
+            consts.DB_MINES: mines,
+            consts.DB_BUSHES: bushes
+        }
+    
+    with open(path, "w") as f:
+        json.dump(data, f)
+    
+    
