@@ -53,7 +53,6 @@ def event_hanlder():
     """
         Function for event handale from user input.
         Implemented with pygame events
-        
     """
     events = pygame.event.get()
     
@@ -94,14 +93,28 @@ def event_hanlder():
                     
                     pressed_time = pygame.time.get_ticks() - timers_keys[i]
                     
+                    # Load data from memory
                     if pressed_time > consts.TIME_FOR_SAVE * 1000:
-                        print("Load save", i)
+                        data = database.get_info_json(consts.PATH_FILE_SAVE, i)
+                        if data is not None:
+                            data_set(database.get_info_json(consts.PATH_FILE_SAVE, i))
                         
+                    # Set data into memory
                     else:
                         database.save_data_into(i, consts.PATH_FILE_SAVE, True, soldier.player["body_positions"][0], state[consts.STATE_NIGHT_MODE], game_field.mines, game_field.bushes)
-                        print("Save data into", i)
                         
-                    
+
+def data_set(data: dict):
+    """Function got dict from save file and updates data of the current game state
+
+    Args:
+        data (dict): data about game state
+    """
+    soldier.create_player(start_row = data[consts.DB_PLAYER_POS][0], start_col = data[consts.DB_PLAYER_POS][1])
+    state[consts.STATE_NIGHT_MODE] = data[consts.DB_NIGHT_STATE]
+    game_field.bushes = data[consts.DB_BUSHES]
+    game_field.mines = data[consts.DB_MINES]
+    
                 
     
     

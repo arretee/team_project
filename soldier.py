@@ -6,13 +6,13 @@ player =  {
     "leg_positions":[]  # List of lists with rows and colos: [[row1, col1], [row2, col2]]]
 }
 
-def create_player():
+def create_player(start_row: int = consts.PLAYER_START_ROW, start_col: int = consts.PLAYER_START_COL):
     for row in range(consts.PLAYER_ROWS):
         for col in range(consts.PLAYER_COLS):
             if row <= consts.PLAYER_ROWS - 2:
-                player["body_positions"].append([row,col])
+                player["body_positions"].append([start_row + row,start_col + col])
             else:
-                player["leg_positions"].append([row,col])
+                player["leg_positions"].append([start_row + row,start_col + col])
 
 def on_mine():
     for leg in player["leg_positions"]:
