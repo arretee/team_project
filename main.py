@@ -30,14 +30,17 @@ def main():
         if soldier.on_mine():
             state[consts.STATE_RUNNING] = False
             screen.draw_message(consts.LOSE_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.LOSE_MESSAGE_COLOR)
+            sleep(5)
+            
             
         elif soldier.on_flag():
             state[consts.STATE_RUNNING] = False
             screen.draw_message(consts.WIN_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.WIN_MESSAGE_COLOR)
+            sleep(5)
             
             
             
-    sleep(5)
+            
     pygame.quit()
     sys.exit()
 
