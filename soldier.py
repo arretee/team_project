@@ -7,6 +7,9 @@ player =  {
 }
 
 def create_player(start_row: int = consts.PLAYER_START_ROW, start_col: int = consts.PLAYER_START_COL):
+    player["body_positions"].clear()
+    player["leg_positions"].clear()
+    
     for row in range(consts.PLAYER_ROWS):
         for col in range(consts.PLAYER_COLS):
             if row <= consts.PLAYER_ROWS - 2:
@@ -20,7 +23,6 @@ def on_mine():
             if tuple(leg) in mine:
                 return True
     return False
-
 
 def on_flag():
 
