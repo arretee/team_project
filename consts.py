@@ -58,8 +58,10 @@ LOSE_MESSAGE = "You Lost it! BOOM"
 LOSE_MESSAGE_COLOR = "red"
 
 WIN_MESSAGE = "GOOD JOB! You reached the flag!"
-WIN_MESSAGE_COLOR = "pink"
+WIN_MESSAGE_COLOR = "pink" 
 
+GUARD_MESSAGE = "You got bited by a guard (don't worry, he's cute)"
+GUARD_MESSAGE_COLOR = "red" 
 
 
 # Paths
@@ -83,6 +85,8 @@ DB_PLAYER_POS = "player_pos"
 DB_NIGHT_STATE = "state_night_listed"
 DB_MINES = "mines"
 DB_BUSHES = "bushes"
+DB_GUARD_POS = "guard_pos"
+DB_GUARD_DIRECTION = "guard_dir"
 
 SAVES_NUMBERS = 10
 
@@ -97,3 +101,4 @@ GUARD_START_COL = 0
 GUARD_START_DIRECTION = [0, 1]
 GUARD_ROWS = 4
 GUARD_COLS = 4
+GUARD_TIME_MOVE = 0.5

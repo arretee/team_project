@@ -1,4 +1,5 @@
 import consts
+import guard
 import game_field
 
 player =  {
@@ -36,6 +37,18 @@ def on_flag():
             return True
     return False
 
+def on_guard():
+    """Function check is player touches to guard
+
+    Returns:
+        bool: True if touhced False other wise
+    """
+    
+    for pos in player["body_positions"] + player["leg_positions"]:
+        if pos in guard.guard:
+            return True
+        
+    return False
 
 
 

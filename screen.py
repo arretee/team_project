@@ -2,6 +2,7 @@ import pygame
 import consts
 import game_field
 import soldier
+import guard
 
 screen = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 
@@ -56,17 +57,35 @@ def draw_grid():
         for y in range(0, consts.WINDOW_HEIGHT, consts.CELL_SIZE):
             rect = pygame.Rect(x, y, consts.CELL_SIZE, consts.CELL_SIZE)
             pygame.draw.rect(screen, consts.COLOR_LINE, rect, 1)
+            
+            
+def draw_guard():
+    """
+        Function draws guard on the screen
+    """
+    guard_pic = pygame.image.load(consts.PATH_IMAGE_GUARD)
+    guard_pic = pygame.transform.scale(guard_pic, (consts.CELL_SIZE * consts.GUARD_COLS, consts.CELL_SIZE * consts.GUARD_ROWS))
+    
+    if guard.direction[1] < 0:
+        guard_pic = pygame.transform.flip(guard_pic, True, False)
+        
+    guard_rect = guard_pic.get_rect(topleft=(guard.guard[0][1] * consts.CELL_SIZE, guard.guard[0][0] * consts.CELL_SIZE))
+        
+    screen.blit(guard_pic, guard_rect)
+    
 
 
 def draw_day_mode():
     fill_background(consts.COLOR_BACKGROUND)
     draw_bushes(game_field.bushes)
+    draw_guard()
     draw_flag()
     draw_soldier(consts.PATH_IMAGE_SOLDIER)
 
 def draw_night_mode():
     fill_background(consts.COLOR_BACKGROUND_NIGHT)
     draw_grid()
+    draw_guard()
     draw_mines(game_field.mines)
     draw_soldier(consts.PATH_IMAGE_SOLDIER_NIGHT)
 

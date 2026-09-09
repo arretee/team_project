@@ -7,6 +7,7 @@ import game_field
 import consts
 import soldier
 import database
+import guard
 
 state = {
     consts.STATE_RUNNING: True,
@@ -16,17 +17,20 @@ state = {
 enter_pressed = True
 enter_timer = 0
 
+guard_timer = 0
+
 save_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0]
 pressed_keys = [False for key in save_keys]
 timers_keys = [0 for key in save_keys]
 
 def main():
-    global enter_timer, enter_pressed
+    global enter_timer, enter_pressed, guard_timer
     
     pygame.init()
     game_field.create_mines()
     game_field.create_bushes()
     soldier.create_player()
+    guard.create_guard()
     
     clock = pygame.Clock()
     
@@ -38,6 +42,11 @@ def main():
     # Main game loop
     while state[consts.STATE_RUNNING]:
         event_hanlder()
+        
+        if pygame.time.get_ticks() - guard_timer >= consts.GUARD_TIME_MOVE * 1000:
+            guard_timer = pygame.time.get_ticks()
+            guard.move_guard()
+            guard.update_direction()
         
         # Night mode deactivation
         if enter_pressed:
@@ -59,6 +68,13 @@ def main():
             state[consts.STATE_RUNNING] = False
             screen.draw_message(consts.WIN_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.WIN_MESSAGE_COLOR)
             sleep(5)
+            
+        elif soldier.on_guard():
+            state[consts.STATE_RUNNING] = False
+            screen.draw_message(consts.GUARD_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.GUARD_MESSAGE_COLOR)
+            sleep(5)
+
+            
             
         clock.tick(consts.FPS)
             
@@ -123,7 +139,17 @@ def event_hanlder():
                         
                     # Set data into memory
                     else:
-                        database.save_data_into(i, consts.PATH_FILE_SAVE, True, soldier.player["body_positions"][0], state[consts.STATE_NIGHT_MODE], game_field.mines, game_field.bushes)
+                        database.save_data_into(
+                            save_num = i, 
+                            path = consts.PATH_FILE_SAVE,
+                            is_saved = True, 
+                            player_pos = soldier.player["body_positions"][0],
+                            night_state = state[consts.STATE_NIGHT_MODE], 
+                            mines = game_field.mines, 
+                            bushes = game_field.bushes,
+                            guard_pos= guard.guard[0],
+                            guard_dir= guard.direction
+                            )
                         
 
 def data_set(data: dict):
@@ -143,6 +169,9 @@ def data_set(data: dict):
     
     game_field.bushes = data[consts.DB_BUSHES]
     game_field.mines = data[consts.DB_MINES]
+    
+    guard.create_guard(row = data[consts.DB_GUARD_POS][0], col = data[consts.DB_GUARD_POS][1])
+    guard.direction = data[consts.DB_GUARD_DIRECTION]
     
                 
     

@@ -34,7 +34,9 @@ def create_empty_save(path: str):
             consts.DB_PLAYER_POS: (),
             consts.DB_NIGHT_STATE: False,
             consts.DB_MINES: [],
-            consts.DB_BUSHES: []
+            consts.DB_BUSHES: [],
+            consts.DB_GUARD_POS: [],
+            consts.DB_GUARD_DIRECTION: [],
         }
         
     with open(path, "w") as f:
@@ -53,7 +55,7 @@ def get_info_json(path: str, saved_num):
 
 
 
-def save_data_into(save_num: int, path: str, is_saved:bool, player_pos:list, night_state: bool, mines: list, bushes:list):
+def save_data_into(save_num: int, path: str, is_saved:bool, player_pos:list, night_state: bool, mines: list, bushes: list, guard_pos: list, guard_dir: list):
     """
         Function saves data into an save file in relevant save number
 
@@ -65,6 +67,8 @@ def save_data_into(save_num: int, path: str, is_saved:bool, player_pos:list, nig
         night_state (bool): night mode is active
         mines (list): mines list
         bushes (list): bushes list
+        guard_pos (list): guard topleft
+        guard_dir (list): guard direction list
     """
 
     with open(path) as f:
@@ -75,7 +79,9 @@ def save_data_into(save_num: int, path: str, is_saved:bool, player_pos:list, nig
             consts.DB_PLAYER_POS: player_pos,
             consts.DB_NIGHT_STATE: night_state,
             consts.DB_MINES: mines,
-            consts.DB_BUSHES: bushes
+            consts.DB_BUSHES: bushes,
+            consts.DB_GUARD_POS: guard_pos,
+            consts.DB_GUARD_DIRECTION: guard_dir,
         }
 
     with open(path, "w") as f:

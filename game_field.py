@@ -65,8 +65,8 @@ def create_mines():
         
         # create temp mine 
         temp_mine = []
-        for row in range(consts.MINE_ROWS):
-            for col in range(consts.MINE_COLS):
+        for row in range(consts.MINE_ROWS * 2):
+            for col in range(consts.MINE_COLS * 2):
                 temp_mine.append((pos[0] + row - consts.MINE_ROWS + 1, pos[1] + col - consts.MINE_COLS + 1))
                 
                 
