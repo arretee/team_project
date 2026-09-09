@@ -26,6 +26,7 @@ def main():
     pygame.init()
     game_field.create_mines()
     game_field.create_bushes()
+    game_field.create_teleports()
     soldier.create_player()
     
     # Create empty save data
@@ -51,7 +52,10 @@ def main():
             state[consts.STATE_RUNNING] = False
             screen.draw_message(consts.LOSE_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.LOSE_MESSAGE_COLOR)
             sleep(5)
-            
+
+        elif soldier.on_teleport():
+            game_field.pick_teleport(game_field.teleports)
+
             
         elif soldier.on_flag():
             state[consts.STATE_RUNNING] = False

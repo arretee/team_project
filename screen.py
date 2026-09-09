@@ -58,8 +58,19 @@ def draw_grid():
             pygame.draw.rect(screen, consts.COLOR_LINE, rect, 1)
 
 
+def draw_teleports(teleport_list):
+    teleport_pic = pygame.image.load(consts.PATH_TELEPORT)
+    size_pic = (consts.CELL_SIZE * consts.SCALE_MINE_COLUMN, consts.CELL_SIZE * consts.SCALE_MINE_ROW)
+    teleport_pic = pygame.transform.scale(teleport_pic, size_pic)
+
+    for t in teleport_list:
+        mine_rect = teleport_pic.get_rect(topleft=(t[0][1] * consts.CELL_SIZE, t[0][0] * consts.CELL_SIZE))
+        screen.blit(teleport_pic, mine_rect)
+
+
 def draw_day_mode():
     fill_background(consts.COLOR_BACKGROUND)
+    draw_teleports(game_field.teleports)
     draw_bushes(game_field.bushes)
     draw_flag()
     draw_soldier(consts.PATH_IMAGE_SOLDIER)

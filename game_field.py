@@ -1,10 +1,12 @@
 import consts
 import random
 
+import soldier
 
 # Create game objects
 bushes = [] # Bush = {"row": x, "col": y}
-mines = [] # Mine = [(row, col), (row1, col1), .... (rown, coln)] -> all positions that mine is on 
+mines = [] # Mine = [(row, col), (row1, col1), .... (rown, coln)] -> all positions that mine is on
+teleports = []
 
 def create_bushes():
     """
@@ -52,7 +54,7 @@ def create_mines():
             
             
     # Set mines at random positions
-    for i in range(consts.BUSHES_NUM):
+    for i in range(consts.MINES_NUM):
         pos = random.choice(positions)
         
         # create mine
@@ -74,3 +76,31 @@ def create_mines():
         for pos in temp_mine + mine:
             if pos in positions:
                 positions.remove(pos)
+
+def create_teleports():
+
+    positions = []
+
+    for row in range(consts.BOARD_ROWS - consts.TELEPORT_ROWS + 1):
+        if consts.START_ROW_TELEPORT <= row <= consts.STOP_ROW_TELEPORT:
+            for col in range(consts.BOARD_COLS - consts.TELEPORT_COLS + 1):
+                positions.append((row, col))
+
+    for row in range(consts.PLAYER_ROWS):
+        for col in range(consts.PLAYER_COLS):
+            if (row, col) in positions:
+                positions.remove((row, col))
+
+    for i in range(consts.TELEPORTS_NUM):
+        pos = random.choice(positions)
+
+        teleport = []
+        for row in range(consts.TELEPORT_ROWS):
+            for col in range(consts.TELEPORT_COLS):
+                teleport.append((pos[0] + row, pos[1] + col))
+
+        teleports.append(teleport)
+
+def pick_teleport(teleports_list):
+    picked_teleport = random.choice(teleports_list)
+    soldier.create_player(picked_teleport[0] - 5, picked_teleport[0])

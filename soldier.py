@@ -37,6 +37,12 @@ def on_flag():
     return False
 
 
+def on_teleport():
+    for leg in player["leg_positions"]:
+        for t in game_field.teleports:
+            if tuple(leg) in t:
+                return True
+    return False
 
 
 
