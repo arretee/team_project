@@ -41,6 +41,7 @@ def create_json(path: str):
         json.dump(empty_data, f)
 
 
+
 def get_info_json(path: str, saved_num):
     with open(path, "r") as file:
         data = json.load(file)
