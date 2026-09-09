@@ -39,4 +39,13 @@ def create_json(path: str):
         
     with open("sample.json", "w") as f:
         json.dump(empty_data, f)
-        
+
+
+def get_info_json(path: str, saved_num):
+    with open(path, "r") as file:
+        data = json.load(file)
+
+    if not data[str(saved_num)][consts.DB_IS_SAVED]:
+        return
+    return data[str(saved_num)]
+
