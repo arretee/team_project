@@ -88,3 +88,4 @@ SAVES_NUMBERS = 10
 
 # Keyboard settings
 TIME_FOR_SAVE = 1
+TIME_ENTER_PRESSD = 1

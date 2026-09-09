@@ -13,11 +13,16 @@ state = {
     consts.STATE_NIGHT_MODE: False,
 }
 
+enter_pressed = True
+enter_timer = 0
+
 save_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0]
 pressed_keys = [False for key in save_keys]
 timers_keys = [0 for key in save_keys]
 
 def main():
+    global enter_timer, enter_pressed
+    
     pygame.init()
     game_field.create_mines()
     game_field.create_bushes()
@@ -31,6 +36,13 @@ def main():
     # Main game loop
     while state[consts.STATE_RUNNING]:
         event_hanlder()
+        
+        # Night mode deactivation
+        if enter_pressed:
+            if pygame.time.get_ticks() - enter_timer >= consts.TIME_ENTER_PRESSD * 1000:
+                enter_pressed = False
+                state[consts.STATE_NIGHT_MODE] = False
+                
         
         screen.draw(state)
         
@@ -50,6 +62,8 @@ def main():
     sys.exit()
 
 def event_hanlder():
+    global enter_timer, enter_pressed
+    
     """
         Function for event handale from user input.
         Implemented with pygame events
@@ -75,8 +89,12 @@ def event_hanlder():
         # Night Mode activation
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                state[consts.STATE_NIGHT_MODE] = not state[consts.STATE_NIGHT_MODE]
+                state[consts.STATE_NIGHT_MODE] = True
+                enter_pressed = True
+                enter_timer = pygame.time.get_ticks()
                 
+            
+            
                 
         # Saves start timers 
         if event.type == pygame.KEYDOWN:
@@ -105,13 +123,20 @@ def event_hanlder():
                         
 
 def data_set(data: dict):
+    global enter_pressed, enter_timer
     """Function got dict from save file and updates data of the current game state
 
     Args:
         data (dict): data about game state
     """
+    
     soldier.create_player(start_row = data[consts.DB_PLAYER_POS][0], start_col = data[consts.DB_PLAYER_POS][1])
+    
     state[consts.STATE_NIGHT_MODE] = data[consts.DB_NIGHT_STATE]
+    enter_timer = pygame.time.get_ticks()
+    enter_pressed = data[consts.DB_NIGHT_STATE]
+    
+    
     game_field.bushes = data[consts.DB_BUSHES]
     game_field.mines = data[consts.DB_MINES]
     
