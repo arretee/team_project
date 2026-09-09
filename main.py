@@ -28,6 +28,8 @@ def main():
     game_field.create_bushes()
     soldier.create_player()
     
+    clock = pygame.Clock()
+    
     # Create empty save data
     if not database.file_exists(consts.PATH_FILE_SAVE):
         database.create_empty_save(consts.PATH_FILE_SAVE)
@@ -57,6 +59,8 @@ def main():
             state[consts.STATE_RUNNING] = False
             screen.draw_message(consts.WIN_MESSAGE, consts.MESSAGE_POS, consts.MESSAGE_SIZE, consts.WIN_MESSAGE_COLOR)
             sleep(5)
+            
+        clock.tick(consts.FPS)
             
     pygame.quit()
     sys.exit()
