@@ -72,3 +72,15 @@ PATH_IMAGE_SNAKE = "images/snake.png"
 PATH_IMAGE_SOLDIER_NIGHT = "images/soldier_night.png"
 PATH_IMAGE_SOLDIER = "images/soldier.png"
 PATH_TELEPORT = "images/teleport.png"
+
+
+PATH_FILE_SAVE = "save.csv"
+
+# Database keys
+DB_IS_SAVED = "is_saved"
+DB_PLAYER_POS = "player_pos"
+DB_NIGHT_STATE = "state_night_listed"
+DB_MINES = "mines"
+DB_BUSHES = "bushes"
+
+SAVES_NUMBERS = 10
